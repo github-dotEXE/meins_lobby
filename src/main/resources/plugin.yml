@@ -1,0 +1,13 @@
+name: Meins_lobby
+version: '${project.version}'
+main: de.ender.meins_lobby.Meins_lobby
+api-version: 1.19
+depend: [ meins_core ]
+authors: [ ender__exe ]
+commands:
+  serversign:
+    description: makes serversign
+  parkour:
+    description: makes parkour
+  getplayers:
+    description: gets list of online players
