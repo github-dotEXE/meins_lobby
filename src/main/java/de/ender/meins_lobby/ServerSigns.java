@@ -91,6 +91,7 @@ public class ServerSigns implements Listener, CommandExecutor, TabCompleter {
         Sign sign = (Sign) bs;
         sign.setLine(0,ChatColor.AQUA+"[Server]");
         sign.setLine(1,args[0]);
+        if(args.length == 2) sign.setLine(3,args[1]);
 
         sign.update();
 
