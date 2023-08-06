@@ -14,7 +14,7 @@ public final class Meins_lobby extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        Log.log(ChatColor.AQUA + "Enabling meins_lobby...");
+        Log.enable(this);
         new UpdateChecker(this,"master").check().downloadLatestMeins();
         plugin = this;
 
@@ -22,8 +22,12 @@ public final class Meins_lobby extends JavaPlugin implements Listener {
         pluginManager.registerEvents(new AntiBreak(),this);
         pluginManager.registerEvents(new AntiHunger(),this);
         pluginManager.registerEvents(new AntiDamage(),this);
+        pluginManager.registerEvents(new AntiUse(),this);
         pluginManager.registerEvents(new ServerSigns(),this);
         pluginManager.registerEvents(new DiskPlayer(),this);
+        pluginManager.registerEvents(new SendOldHostnameAlert(),this);
+        pluginManager.registerEvents(new AntiInventory(),this);
+        pluginManager.registerEvents(new AntiXp(),this);
         pluginManager.registerEvents(this,this);
 
         getCommand("serversign").setExecutor(new ServerSigns());
@@ -34,7 +38,7 @@ public final class Meins_lobby extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        Log.log(ChatColor.AQUA + "Disabling meins_lobby...");
+        Log.disable(this);
     }
     public static Meins_lobby getPlugin() {
         return plugin;

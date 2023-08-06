@@ -40,10 +40,11 @@ public class ServerSigns implements Listener, CommandExecutor, TabCompleter {
             if (action == Action.RIGHT_CLICK_BLOCK && blockstate instanceof Sign) {
                 Sign sign = (Sign) blockstate;
                 if(!sign.getLine(0).contains(ChatColor.AQUA+"[Server]") ||
-                        !PluginMessageManager.getServers().contains(sign.getLine(1))
-                        ) return;
+                        !PluginMessageManager.getServers().contains(sign.getLine(1))) return;
+
+                player.sendMessage(ChatColor.AQUA+ "Trying to connect you to "+ChatColor.DARK_PURPLE+sign.getLine(1) +ChatColor.AQUA+  "!");
                 PluginMessageManager.connectSafely(player.getName(),sign.getLine(1));
-                player.sendMessage(ChatColor.AQUA+ "You were sent to "+ChatColor.DARK_PURPLE+sign.getLine(1) +ChatColor.AQUA+  "!");
+                event.setCancelled(true);
             }
         }
     }

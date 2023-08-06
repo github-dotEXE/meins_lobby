@@ -6,7 +6,7 @@
 
     <groupId>de.ender</groupId>
     <artifactId>lobby</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>Meins_lobby</name>
@@ -39,7 +39,7 @@
     <distributionManagement>
         <repository>
             <id>de.ender-releases</id>
-            <url>http://exe.ddns.net:8081/releases</url>
+            <url>http://repo.etwas--anders.de/releases</url>
         </repository>
     </distributionManagement>
 
@@ -55,7 +55,7 @@
         <repository>
             <id>de.ender-releases</id>
             <name>meins_repo</name>
-            <url>http://exe.ddns.net:8081/releases</url>
+            <url>http://repo.etwas--anders.de/releases</url>
         </repository>
     </repositories>
 
@@ -63,19 +63,13 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.19.4-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>1.19-R0.1-SNAPSHOT</version>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.ender</groupId>
             <artifactId>core</artifactId>
-            <version>1.22</version>
+            <version>1.32</version>
         </dependency>
     </dependencies>
 </project>
