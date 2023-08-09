@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 public class AntiInventory implements Listener {
     @EventHandler
     public void onInventoryChange(PlayerInventoryChangeEvent event){
-        if(!event.getPlayer().hasPermission("lobby.inventory")) return;
+        if(event.getPlayer().hasPermission("lobby.inventory")) return;
         event.setCancelled(true);
     }
 }

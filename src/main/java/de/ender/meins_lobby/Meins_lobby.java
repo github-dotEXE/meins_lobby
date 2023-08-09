@@ -2,7 +2,6 @@ package de.ender.meins_lobby;
 
 import de.ender.core.Log;
 import de.ender.core.UpdateChecker;
-import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,7 +24,6 @@ public final class Meins_lobby extends JavaPlugin implements Listener {
         pluginManager.registerEvents(new AntiUse(),this);
         pluginManager.registerEvents(new ServerSigns(),this);
         pluginManager.registerEvents(new DiskPlayer(),this);
-        pluginManager.registerEvents(new SendOldHostnameAlert(),this);
         pluginManager.registerEvents(new AntiInventory(),this);
         pluginManager.registerEvents(new AntiXp(),this);
         pluginManager.registerEvents(this,this);

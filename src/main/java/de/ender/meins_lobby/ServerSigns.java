@@ -1,6 +1,7 @@
 package de.ender.meins_lobby;
 
 import de.ender.core.PluginMessageManager;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -9,6 +10,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.block.data.Directional;
+import org.bukkit.block.sign.Side;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ServerSigns implements Listener, CommandExecutor, TabCompleter {
+    private static final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
@@ -39,10 +42,10 @@ public class ServerSigns implements Listener, CommandExecutor, TabCompleter {
             BlockState blockstate = block.getState();
             if (action == Action.RIGHT_CLICK_BLOCK && blockstate instanceof Sign) {
                 Sign sign = (Sign) blockstate;
-                if(!sign.getLine(0).contains(ChatColor.AQUA+"[Server]") ||
+                if(!sign.getSide(Side.FRONT).line(0).contains(miniMessage.deserialize("<aqua>[Server]")) ||
                         !PluginMessageManager.getServers().contains(sign.getLine(1))) return;
 
-                player.sendMessage(ChatColor.AQUA+ "Trying to connect you to "+ChatColor.DARK_PURPLE+sign.getLine(1) +ChatColor.AQUA+  "!");
+                player.sendMessage(miniMessage.deserialize("<aqua>Trying to connect you to <dark_purple>"+sign.getLine(1) +"</dark_purple>!"));
                 PluginMessageManager.connectSafely(player.getName(),sign.getLine(1));
                 event.setCancelled(true);
             }
@@ -55,7 +58,7 @@ public class ServerSigns implements Listener, CommandExecutor, TabCompleter {
         BlockState blockstate = block.getState();
         if (blockstate instanceof Sign) {
             Sign sign = (Sign) blockstate;
-            if(!sign.getLine(0).contains(ChatColor.AQUA+"[Server]")) return;
+            if(!sign.line(0).contains(miniMessage.deserialize("<aqua>[Server]"))) return;
             if(!player.hasPermission("lobby.break.serversign")) event.setCancelled(true);
         }
     }
@@ -90,9 +93,9 @@ public class ServerSigns implements Listener, CommandExecutor, TabCompleter {
         bs.update();
 
         Sign sign = (Sign) bs;
-        sign.setLine(0,ChatColor.AQUA+"[Server]");
+        sign.line(0,miniMessage.deserialize("<aqua>[Server]"));
         sign.setLine(1,args[0]);
-        if(args.length == 2) sign.setLine(3,args[1]);
+        if(args.length == 2) sign.line(3,miniMessage.deserialize(args[1]));
 
         sign.update();
 

@@ -1,6 +1,5 @@
 package de.ender.meins_lobby;
 
-import com.destroystokyo.paper.event.player.PlayerPickupExperienceEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerExpChangeEvent;

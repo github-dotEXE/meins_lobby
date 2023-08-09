@@ -1,4 +1,4 @@
-name: Meins_lobby
+name: meins_lobby
 version: '${project.version}'
 main: de.ender.meins_lobby.Meins_lobby
 api-version: 1.19
