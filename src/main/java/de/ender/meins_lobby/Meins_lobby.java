@@ -7,8 +7,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Meins_lobby extends JavaPlugin implements Listener {
-    public static final String PARKOUR_TIMES = "ParkourTimes";
-    public static final String PARKOUR_LOCATIONS = "ParkourLocations";
     public static Meins_lobby plugin;
 
     @Override
