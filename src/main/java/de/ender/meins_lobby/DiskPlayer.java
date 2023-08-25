@@ -2,6 +2,7 @@ package de.ender.meins_lobby;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
@@ -19,11 +20,16 @@ public class DiskPlayer implements Listener {
         if(e instanceof ItemFrame) {
             ItemFrame itemFrame = (ItemFrame) e;
             ItemStack item = itemFrame.getItem();
-            if(item.getType().name().toLowerCase().contains("disc")) {
-                player.stopAllSounds();
-                player.sendActionBar(miniMessage.deserialize("<green>Now playing "+ item.getType().name()));
-                //player.getWorld().playSound(player.getLocation(), Sound.valueOf(item.getType().name()), 1, 1);
-                player.playSound(e.getLocation(), Sound.valueOf(item.getType().name()), 1, 1);
+            if(item.getType().name().contains("DISC")) {
+                //player.stopAllSounds();
+                player.stopSound(SoundCategory.RECORDS);
+                player.sendActionBar(miniMessage.deserialize("<rainbow>Now playing: "+ item.getType().name()));
+
+                if(!player.isSneaking()) player.playSound(e.getLocation(),
+                        Sound.valueOf(item.getType().name()), SoundCategory.RECORDS, 1, 1);
+                else player.playSound(player,
+                        Sound.valueOf(item.getType().name()), SoundCategory.RECORDS, 1, 1);
+
                 event.setCancelled(true);
             }
         }
