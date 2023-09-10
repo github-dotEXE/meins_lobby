@@ -1,5 +1,6 @@
 package de.ender.meins_lobby;
 
+import de.ender.core.Log;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
