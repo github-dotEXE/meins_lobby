@@ -8,8 +8,10 @@ import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -55,6 +57,13 @@ public class DiskPlayer implements Listener {
         player.stopSound(SoundCategory.RECORDS);
         stopLoop(player);
     }
+    @EventHandler
+    public void stopLoop(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        if(!player.isSneaking()||event.getAction()!= Action.LEFT_CLICK_AIR) return;
+        player.stopSound(SoundCategory.RECORDS);
+        stopLoop(player);
+    }
 
     private static final HashMap<Sound,Long> discRadio = new HashMap<Sound,Long>() {{
         put(Sound.MUSIC_DISC_CAT,185L);
@@ -65,7 +74,6 @@ public class DiskPlayer implements Listener {
         put(Sound.MUSIC_DISC_MELLOHI,100L);
         put(Sound.MUSIC_DISC_STAL,150L);
         put(Sound.MUSIC_DISC_STRAD,188L);
-        put(Sound.MUSIC_DISC_WARD,251L);
         put(Sound.MUSIC_DISC_WAIT,238L);
         put(Sound.MUSIC_DISC_OTHERSIDE,195L);
         put(Sound.MUSIC_DISC_PIGSTEP,148L);
@@ -74,7 +82,7 @@ public class DiskPlayer implements Listener {
     private static final HashMap<Player, BukkitTask> discTask = new HashMap<>();
 
     private static void playLoop(Player player,Sound sound){
-        player.sendActionBar(miniMessage.deserialize("<green>Now playing:</green> <gray>"+
+        player.sendActionBar(miniMessage.deserialize("<green>Radio now playing:</green> <gray>"+
                 sound.name().replaceAll("MUSIC_DISC_","").toLowerCase()));
         player.playSound(player, sound, SoundCategory.RECORDS, 1, 1);
         discTask.put(player,new BukkitRunnable() {
@@ -88,7 +96,9 @@ public class DiskPlayer implements Listener {
         }.runTaskLater(Meins_lobby.getPlugin(),discRadio.get(sound)*20+10));
     }
     private static void stopLoop(Player player){
-        discTask.get(player).cancel();
-        discTask.remove(player);
+        if(discTask.get(player)!=null) {
+            discTask.get(player).cancel();
+            discTask.remove(player);
+        }
     }
 }
