@@ -1,7 +1,7 @@
 name: meins_lobby
 version: '${project.version}'
 main: de.ender.meins_lobby.Meins_lobby
-api-version: 1.19
+api-version: 1.21.1
 depend: [ meins_core ]
 authors: [ ender__exe ]
 commands:

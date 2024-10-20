@@ -27,8 +27,7 @@ public class DiskPlayer implements Listener {
         Player player = event.getPlayer();
         Entity e = event.getRightClicked();
 
-        if(!(e instanceof ItemFrame)) return;
-        ItemFrame itemFrame = (ItemFrame) e;
+        if(!(e instanceof ItemFrame itemFrame)) return;
         ItemStack item = itemFrame.getItem();
         if(item.getType().isRecord()) {
             player.stopSound(SoundCategory.RECORDS);
@@ -37,8 +36,7 @@ public class DiskPlayer implements Listener {
             if(!player.isSneaking()) {
                 if(item.getItemMeta()!=null&&item.getItemMeta().displayName()!=null)
                     player.sendActionBar(miniMessage.deserialize("<green>Now playing:</green> ").append(item.getItemMeta().displayName()));
-                else player.sendActionBar(miniMessage.deserialize("<green>Now playing:</green> <gray>"+
-                        item.getType().name().replaceAll("MUSIC_DISC_","").toLowerCase()));
+                else player.sendActionBar(miniMessage.deserialize("<green>Now playing:</green> <white>"+diskDisplayName(item.getType().name())));
 
                 player.playSound(player,
                         Sound.valueOf(item.getType().name()), SoundCategory.RECORDS, 1, 1);
@@ -49,8 +47,7 @@ public class DiskPlayer implements Listener {
     }
     @EventHandler
     public void onEntityHurt(EntityDamageByEntityEvent event) {
-        if(!(event.getDamager() instanceof Player)) return;
-        Player player = (Player) event.getDamager();
+        if(!(event.getDamager() instanceof Player player)) return;
         Entity e = event.getEntity();
 
         if(!(e instanceof ItemFrame && ((ItemFrame) e).getItem().getType().isRecord())) return;
@@ -65,31 +62,33 @@ public class DiskPlayer implements Listener {
         stopLoop(player);
     }
 
-    private static final HashMap<Sound,Long> discRadio = new HashMap<Sound,Long>() {{
-        put(Sound.MUSIC_DISC_CAT,185L);
-        put(Sound.MUSIC_DISC_BLOCKS,345L);
-        put(Sound.MUSIC_DISC_CHIRP,185L);
-        put(Sound.MUSIC_DISC_FAR,174L);
-        put(Sound.MUSIC_DISC_MALL,197L);
-        put(Sound.MUSIC_DISC_MELLOHI,100L);
-        put(Sound.MUSIC_DISC_STAL,150L);
-        put(Sound.MUSIC_DISC_STRAD,188L);
-        put(Sound.MUSIC_DISC_WAIT,238L);
-        put(Sound.MUSIC_DISC_OTHERSIDE,195L);
-        put(Sound.MUSIC_DISC_PIGSTEP,148L);
-        put(Sound.MUSIC_DISC_RELIC,218L);
+    private static final HashMap<Sound,Long> discRadio = new HashMap<>() {{
+        put(Sound.MUSIC_DISC_CAT, 185L);
+        put(Sound.MUSIC_DISC_BLOCKS, 345L);
+        put(Sound.MUSIC_DISC_CHIRP, 185L);
+        put(Sound.MUSIC_DISC_FAR, 174L);
+        put(Sound.MUSIC_DISC_MALL, 197L);
+        put(Sound.MUSIC_DISC_MELLOHI, 100L);
+        put(Sound.MUSIC_DISC_STAL, 150L);
+        put(Sound.MUSIC_DISC_STRAD, 188L);
+        put(Sound.MUSIC_DISC_WAIT, 238L);
+        put(Sound.MUSIC_DISC_OTHERSIDE, 195L);
+        put(Sound.MUSIC_DISC_PIGSTEP, 148L);
+        put(Sound.MUSIC_DISC_RELIC, 218L);
+        put(Sound.MUSIC_DISC_CREATOR, 176L);
+        put(Sound.MUSIC_DISC_CREATOR_MUSIC_BOX, 73L);
+        put(Sound.MUSIC_DISC_PRECIPICE, 299L);
     }};
     private static final HashMap<Player, BukkitTask> discTask = new HashMap<>();
 
     private static void playLoop(Player player,Sound sound){
-        player.sendActionBar(miniMessage.deserialize("<green>Radio now playing:</green> <gray>"+
-                sound.name().replaceAll("MUSIC_DISC_","").toLowerCase()));
+        player.sendActionBar(miniMessage.deserialize("<green>Radio now playing:</green> <white>"+diskDisplayName(sound.name())));
         player.playSound(player, sound, SoundCategory.RECORDS, 1, 1);
         discTask.put(player,new BukkitRunnable() {
             @Override
             public void run() {
                 if(!player.isOnline()) cancel();
-                ArrayList<Sound> possibleSounds = new ArrayList<>( discRadio.keySet());
+                ArrayList<Sound> possibleSounds = new ArrayList<>(discRadio.keySet());
                 possibleSounds.remove(sound);
                 playLoop(player, possibleSounds.get( new Random().nextInt(possibleSounds.size()) ) );
             }
@@ -100,5 +99,21 @@ public class DiskPlayer implements Listener {
             discTask.get(player).cancel();
             discTask.remove(player);
         }
+    }
+
+    private static String diskDisplayName(String fullname) {
+        String lowercaseDisplayName = fullname.replaceAll("MUSIC_DISC_","").replaceAll("_", " ").toLowerCase();
+        String[] words = lowercaseDisplayName.split(" ");
+        StringBuilder capitalized = new StringBuilder();
+
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                capitalized.append(Character.toUpperCase(word.charAt(0)))
+                        .append(word.substring(1).toLowerCase())
+                        .append(" ");
+            }
+        }
+
+        return capitalized.toString().trim();
     }
 }
