@@ -12,7 +12,7 @@ public final class Meins_lobby extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         Log.enable(this);
-        new UpdateChecker(this,"master").check().downloadLatestMeins();
+        //new UpdateChecker(this,"master").check().downloadLatestMeins();
         plugin = this;
 
         PluginManager pluginManager = getServer().getPluginManager();

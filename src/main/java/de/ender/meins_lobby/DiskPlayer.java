@@ -23,7 +23,7 @@ import java.util.Random;
 public class DiskPlayer implements Listener {
     private static final MiniMessage miniMessage = MiniMessage.miniMessage();
     @EventHandler
-    public void onEntityInteract(PlayerInteractEntityEvent event) {
+    public void onEntityInteract(PlayerInteractEntityEvent event) { // TODO refactor and make everything config based (which sounds in radio, name with mini message, length)
         Player player = event.getPlayer();
         Entity e = event.getRightClicked();
 

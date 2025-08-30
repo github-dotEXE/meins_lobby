@@ -40,8 +40,7 @@ public class ServerSigns implements Listener, CommandExecutor, TabCompleter {
         Block block = event.getClickedBlock();
         if (block != null) {
             BlockState blockstate = block.getState();
-            if (action == Action.RIGHT_CLICK_BLOCK && blockstate instanceof Sign) {
-                Sign sign = (Sign) blockstate;
+            if (action == Action.RIGHT_CLICK_BLOCK && blockstate instanceof Sign sign) {
                 if(!sign.getLine(0).contains(ChatColor.AQUA+"[Server]") ||
                         !PluginMessageManager.getServers().contains(sign.getLine(1))) return;
 
