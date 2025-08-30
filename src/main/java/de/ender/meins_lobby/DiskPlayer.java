@@ -71,6 +71,7 @@ public class DiskPlayer implements Listener {
         put(Sound.MUSIC_DISC_MELLOHI, 100L);
         put(Sound.MUSIC_DISC_STAL, 150L);
         put(Sound.MUSIC_DISC_STRAD, 188L);
+        put(Sound.MUSIC_DISC_WARD, 251L);
         put(Sound.MUSIC_DISC_WAIT, 238L);
         put(Sound.MUSIC_DISC_OTHERSIDE, 195L);
         put(Sound.MUSIC_DISC_PIGSTEP, 148L);
@@ -78,6 +79,8 @@ public class DiskPlayer implements Listener {
         put(Sound.MUSIC_DISC_CREATOR, 176L);
         put(Sound.MUSIC_DISC_CREATOR_MUSIC_BOX, 73L);
         put(Sound.MUSIC_DISC_PRECIPICE, 299L);
+        put(Sound.MUSIC_DISC_TEARS, 175L);
+        put(Sound.MUSIC_DISC_LAVA_CHICKEN, 135L);
     }};
     private static final HashMap<Player, BukkitTask> discTask = new HashMap<>();
 
